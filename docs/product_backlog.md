@@ -85,7 +85,7 @@
         <td> possuir alguma forma de realizar a filtragem apropriada na busca de serviços </td>
 	<td> eu possa encontrar um conjunto de serviços que se encaixem nas minhas necessidades. Isso inclui disponibilidade de tempo, local e outros. </td>
         <td> Média </td>
-        <td> 4 </td>
+        <td> 3, 4 </td>
         <td> RF07 </td>
     </tr>
     <tr>
