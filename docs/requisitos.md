@@ -1,7 +1,9 @@
-# Requisitos do Projeto
+# Requisitos WeServe
 A seguir se encontram os requisitos levantados para o projeto. 
 
-## Requisitos Funcionais
+## Requisitos - Versão 1.0
+
+### Requisitos Funcionais
 
 <table>
     <tr>
@@ -102,7 +104,7 @@ A seguir se encontram os requisitos levantados para o projeto.
     </tr>
 </table>
 
-## Requisitos Não Funcionais
+### Requisitos Não Funcionais
 
 <table>
     <tr>

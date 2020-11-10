@@ -2,7 +2,7 @@
 
 <p align="justify">A seguir se encontra o roadmap do projeto, que serve como um cronograma de marcos do projeto. Ele foi construído levando em consideração o escopo da disciplina de Requisitos de Software. O desenvolvimento do projeto foi dividido em 6 Sprints.</p>
 
-## Roadmap 1.0
+## Roadmap - Versão 1.0
 
 ### Sprint 0
 <i>Duração: 31/10/2020 - 06/11/2020</i>
@@ -31,7 +31,7 @@
  - Implementação US05
  - Implementação US07
  - APK 0.2
- - Reporte do Status do Projeto:
+ - Reporte do Status do Projeto
 
 ### Sprint 3
 <i>Duração: 21/11/2020 - 27/11/2020</i>
@@ -39,7 +39,7 @@
  - Implementação US04
  - Implementação US08
  - APK 0.3
- - Acompanhamento do Projeto:
+ - Acompanhamento do Projeto
 
 ### Sprint 4
 <i>Duração: 28/11/2020 - 03/12/2020</i>
