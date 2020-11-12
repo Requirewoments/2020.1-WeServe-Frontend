@@ -293,5 +293,4 @@ Esse atributo relata o esforço necessário para incorporar cada recurso ao proj
 - Baixa: Risco baixo, mas ainda sendo necessário um certo nível de atenção.
 
 ## Referências:
-<https://www.ibm.com/support/knowledgecenter/pt-br/SSWMEQ_4.0.6/com.ibm.rational.rrm.help.doc/topics/r_vision_doc.html
-> Acesso em 08/11/2020
+<https://www.ibm.com/support/knowledgecenter/pt-br/SSWMEQ_4.0.6/com.ibm.rational.rrm.help.doc/topics/r_vision_doc.html> Acesso em 08/11/2020
