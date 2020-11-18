@@ -294,3 +294,41 @@ Esse atributo relata o esforço necessário para incorporar cada recurso ao proj
 
 ## Referências:
 <https://www.ibm.com/support/knowledgecenter/pt-br/SSWMEQ_4.0.6/com.ibm.rational.rrm.help.doc/topics/r_vision_doc.html> Acesso em 08/11/2020
+
+## Versionamento
+<table>
+    <tr>
+        <th>Data</th>
+        <th>Versão</th>
+        <th>Descrição</th>
+        <th>Autor(es)</th>
+    </tr>
+    <tr>
+        <td>
+        08/11/2020
+        </td>
+        <td>
+        1.0
+        </td>
+        <td>
+        Criação dos tópicos 1 a 5
+        </td>
+        <td>
+        Maicon Mares
+        </td>
+    </tr>
+    <tr>
+        <td>
+        08/11/2020
+        </td>
+        <td>
+        1.0
+        </td>
+        <td>
+        Criação dos tópicos 6 a 8.4
+        </td>
+        <td>
+        João Pedro Silva
+        </td>
+    </tr>
+</table>

@@ -72,6 +72,8 @@
 
 ## 6.Processo de priorização dos requisitos
 ### 6.1.Priorizar requisitos
+
+## Versionamento
 <table>
     <tr>
         <th>Data</th>
