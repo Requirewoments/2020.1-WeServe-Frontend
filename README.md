@@ -13,3 +13,10 @@
 4. Inicie o servidor react native `npm start`
 
 5. Lançe o app `npm run android`
+
+## Padrão de arquivos
+
+- `/views/` contém as telas do aplicativo
+- `/components/` contém os componentes utilizados por todo aplicativo
+- `/assets/` contém imagens, fontes e outros assets do aplicativo
+- `/App.js` Arquivo principal do aplicativo onde visualizações são carregadas
