@@ -10,7 +10,7 @@ export default props => {
     return (
         <NavigationContainer>
             <Stack.Navigator
-                initialRouteName="ProfileUser">
+                initialRouteName="HomePage">
                 <Stack.Screen
                     name="ProfileUser"
                     component={ProfileUser}
