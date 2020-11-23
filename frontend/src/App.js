@@ -5,30 +5,33 @@ import ProfileUser from './views/ProfileUser';
 import HomePage from './views/HomePage';
 import { Button, Icon } from 'react-native-elements';
 import UpdateUser from './views/UpdateUser';
+import { UserProvider } from './context/UserContext';
 
 const Stack = createStackNavigator();
 
 export default (props) => {
     return (
-        <NavigationContainer>
-            <Stack.Navigator initialRouteName="HomePage">
-                <Stack.Screen
-                    name="ProfileUser"
-                    component={ProfileUser}
-                    options={title.profileUser}
-                />
-                <Stack.Screen
-                    name="HomePage"
-                    component={HomePage}
-                    options={title.homePage}
-                />
-                <Stack.Screen
-                    name="UpdateUser"
-                    component={UpdateUser}
-                    options={title.updateUser}
-                />
-            </Stack.Navigator>
-        </NavigationContainer>
+        <UserProvider>
+            <NavigationContainer>
+                <Stack.Navigator initialRouteName="HomePage">
+                    <Stack.Screen
+                        name="ProfileUser"
+                        component={ProfileUser}
+                        options={title.profileUser}
+                    />
+                    <Stack.Screen
+                        name="HomePage"
+                        component={HomePage}
+                        options={title.homePage}
+                    />
+                    <Stack.Screen
+                        name="UpdateUser"
+                        component={UpdateUser}
+                        options={title.updateUser}
+                    />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </UserProvider>
     );
 };
 

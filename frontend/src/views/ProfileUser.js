@@ -1,43 +1,33 @@
-import { ThemeProvider } from '@react-navigation/native';
-import React, { Component } from 'react';
-import { StyleSheet, View, Image, TextInput, Text } from 'react-native';
+import React, { Component, useContext } from 'react';
+import { StyleSheet, View, Image, Text } from 'react-native';
+import UserContext from '../context/UserContext';
 
-export default class ProfileUser extends Component {
-    
-    user = {
-        id: 1,
-        name: 'Jubiscraudio',
-        username: 'Jubisnocaudio',
-        email: 'jubiscaca@nocaudio.com',
-        startDate: '21/11/2020',
-        profilePhoto:
-            'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
-    };
+export default function ProfileUser (){
+    const {state, dispatch} = useContext(UserContext)
+    const { user } = state
 
-    render() {
-        return (
-            <View style={styles.container}>
-                <Image style={styles.tinyLogo} source={{ uri: this.user.profilePhoto }} />
-                <View style={styles.textContainer}>
-                    <Text style={styles.textLabel}>Nome:</Text>
-                    <Text style={styles.text}>{this.user.name}</Text>
-                </View>
-                <View style={styles.textContainer}>
-                    <Text style={styles.textLabel}>Email:</Text>
-                    <Text style={styles.text}>{this.user.email}</Text>
-                </View>
-                <View style={styles.textContainer}>
-                    <Text style={styles.textLabel}>Username:</Text>
-                    <Text style={styles.text}>{this.user.username}</Text>
-                </View>
-                <View style={styles.textContainer}>
-                    <Text style={styles.textLabel}>Membro Desde:</Text>
-                    <Text style={styles.text}>{this.user.startDate}</Text>
-                </View>
+    return (
+        <View style={styles.container}>
+            <Image style={styles.tinyLogo} source={{ uri: user.profilePhoto }} />
+            <View style={styles.textContainer}>
+                <Text style={styles.textLabel}>Nome:</Text>
+                <Text style={styles.text}>{user.name}</Text>
             </View>
-            
-        );
-    }
+            <View style={styles.textContainer}>
+                <Text style={styles.textLabel}>Email:</Text>
+                <Text style={styles.text}>{user.email}</Text>
+            </View>
+            <View style={styles.textContainer}>
+                <Text style={styles.textLabel}>Username:</Text>
+                <Text style={styles.text}>{user.username}</Text>
+            </View>
+            <View style={styles.textContainer}>
+                <Text style={styles.textLabel}>Membro Desde:</Text>
+                <Text style={styles.text}>{user.createdAt}</Text>
+            </View>
+        </View>
+        
+    );
 }
 
 const styles = StyleSheet.create({
