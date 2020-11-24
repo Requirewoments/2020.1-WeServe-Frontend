@@ -32,6 +32,14 @@ router.post('/edit/:id', function(req, res) {
     });
 });
 
+router.get('/delete/:id', function(req, res) {
+  var id = req.params.id;
+  global.db.deleteOne(id, (e, r) => {
+        if(e) { return console.log(e); }
+        res.redirect('/');
+      });
+});
+
 router.get('/edit/:id', function(req, res, next) {
   var id = req.params.id;
   global.db.findOne(id, (e, docs) => {
