@@ -3,10 +3,19 @@ mongoClient.connect("mongodb://localhost", { useUnifiedTopology: true })
             .then(conn => global.conn = conn.db("backend"))
             .catch(err => console.log(err))
              
-module.exports = { findAll, insert }
+module.exports = { findAll, insert , findOne , update }
 
 function findAll(callback){  
     global.conn.collection("customers").find({}).toArray(callback);
+}
+
+function update(id, customer, callback){
+    global.conn.collection("customers").updateOne({_id: new ObjectId(id)}, {$set: customer}, callback);
+}
+
+var ObjectId = require("mongodb").ObjectId;
+function findOne(id, callback){  
+    global.conn.collection("customers").find(new ObjectId(id)).toArray(callback);
 }
 
 function insert(customer, callback){
