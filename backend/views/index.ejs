@@ -6,6 +6,16 @@
   </head>
   <body>
     <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <ul>
+      <% docs.forEach(function(customer){ %>
+        <li>
+            <%= customer.nome %>
+        </li>
+      <% }) %>
+    </ul>
+
+    <hr />
+    <a href="/new">Cadastrar novo cliente</a>
+    
   </body>
 </html>
