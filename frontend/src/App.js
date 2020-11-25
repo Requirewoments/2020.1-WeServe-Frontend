@@ -1,17 +1,32 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import ProfileUser from './views/ProfileUser';
-import HomePage from './views/HomePage';
 import { Button, Icon } from 'react-native-elements';
+
+// Home page
+import HomePage from './views/HomePage';
+
+// CRUD Serviços
+import ServicesIndex from './views/ServicesIndex'
+import ServiceView from './views/ServiceView'
+import ServiceSubmit from './views/ServiceSubmit'
+
+// CRUD User
+import ProfileUser from './views/ProfileUser';
 import UpdateUser from './views/UpdateUser';
+
+// CRUD Messages
+import MessagesIndex from './views/MessagesIndex'
+import MessageView from './views/MessageView'
+
+// Context user
 import { UserProvider } from './context/UserContext';
 
 const Stack = createStackNavigator();
 
 export default (props) => {
     return (
-        <UserProvider>
+        <UserProvider style={{fontFamily: 'Raleway-Normal'}}>
             <NavigationContainer>
                 <Stack.Navigator initialRouteName="HomePage">
                     <Stack.Screen
@@ -28,6 +43,31 @@ export default (props) => {
                         name="UpdateUser"
                         component={UpdateUser}
                         options={title.updateUser}
+                    />
+                    <Stack.Screen
+                        name="ServicesIndex"
+                        component={ServicesIndex}
+                        options={title.ServicesIndex}
+                    />
+                    <Stack.Screen
+                        name="ServiceView"
+                        component={ServiceView}
+                        options={title.ServiceView}
+                    />
+                    <Stack.Screen
+                        name="ServiceSubmit"
+                        component={ServiceSubmit}
+                        options={title.ServiceSubmit}
+                    />
+                    <Stack.Screen
+                        name="MessagesIndex"
+                        component={MessagesIndex}
+                        options={title.MessagesIndex}
+                    />
+                    <Stack.Screen
+                        name="MessageView"
+                        component={MessageView}
+                        options={title.MessageView}
                     />
                 </Stack.Navigator>
             </NavigationContainer>
@@ -57,6 +97,7 @@ const title = {
         headerTitleStyle: {
             alignSelf: 'center',
             fontSize: 25,
+            fontFamily: 'Raleway-Normal'
         },
     },
     updateUser: ({ navigation }) => {
@@ -74,5 +115,20 @@ const title = {
                 />
             ),
         }
+    },
+    ServicesIndex: {
+        title: 'Serviços'
+    },
+    ServiceView: {
+        title: 'Serviço'
+    },
+    ServiceSubmit: {
+        title: 'Criar Serviço'
+    },
+    MessagesIndex: {
+        title: 'Suas mensagens'
+    },
+    MessageView: {
+        title: 'Mensagens'
     },
 };
