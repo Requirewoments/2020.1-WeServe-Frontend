@@ -6,7 +6,10 @@ const InitialState = {
         name: 'João Pedro',
         createdAt: '04/07/2020',
         username: 'top dos tops',
-        profilePhoto: 'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg'
+        profilePhoto: 'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
+        password: 'as32AA',
+        birthday: '',
+        email: 'algo',
     }
 }
 
@@ -22,14 +25,7 @@ const actions = {
     },
 }
 
-const user = {
-    name: 'João Pedro',
-    email: 'olhaocara@gmail.com',
-    password: 'ab23AB',
-}
-
-
-function createUser() {
+function createUser(user) {
     const url_request = Globals.server_ip + '/user'
     fetch(url_request, {
         method: 'POST',
@@ -42,7 +38,7 @@ function createUser() {
             email: user.email,
             password: user.password,
         })
-    }).then((e) => console.log(e.status)).catch((e) => console.log(e));
+    }).then((e) => console.warn(e.status)).catch((e) => console.warn(e));
 }
 
 export const UserProvider = props => {
@@ -51,9 +47,9 @@ export const UserProvider = props => {
         return fn ? fn(state, action) : state
     }
 
-    createUser()
-
+    
     const [state, dispatch] = useReducer(reducer, InitialState)
+    createUser(state.user)
 
     return (
         <UserContext.Provider value={{ state, dispatch }}>

@@ -12,6 +12,7 @@ import ServiceSubmit from './views/ServiceSubmit'
 // CRUD User
 import ProfileUser from './views/ProfileUser';
 import UpdateUser from './views/UpdateUser';
+import SignUp from './views/SignUp';
 
 // CRUD Messages
 import MessagesIndex from './views/MessagesIndex'
@@ -26,7 +27,12 @@ export default (props) => {
     return (
         <UserProvider style={{fontFamily: 'Raleway-Normal'}}>
             <NavigationContainer>
-                <Stack.Navigator initialRouteName="ServicesIndex">
+                <Stack.Navigator initialRouteName="SignUp">
+                    <Stack.Screen
+                        name="SignUp"
+                        component={SignUp}
+                        options={title.signUp}
+                    />
                     <Stack.Screen
                         name="ProfileUser"
                         component={ProfileUser}
@@ -141,4 +147,7 @@ const title = {
     MessageView: {
         title: 'Mensagens'
     },
+    signUp: {
+        title: 'Criar conta'
+    }
 };
