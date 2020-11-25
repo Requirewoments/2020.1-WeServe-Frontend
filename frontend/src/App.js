@@ -1,4 +1,5 @@
 import React from 'react';
+import { View } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Button, Icon } from 'react-native-elements';
@@ -82,6 +83,7 @@ const title = {
             headerTitleStyle: {
             marginLeft: 15,
             fontSize: 25,
+            fontFamily: 'Raleway-Normal'
             },
             headerRight: () => (
                 <Button
@@ -92,13 +94,31 @@ const title = {
             ),
         }
     },
-    homePage: {
-        title: 'WeServe',
-        headerTitleStyle: {
-            alignSelf: 'center',
-            fontSize: 25,
-            fontFamily: 'Raleway-Normal'
-        },
+    homePage: ({ navigation }) => {
+        return {
+            title: 'WeServe',
+            headerTitleStyle: {
+                alignSelf: 'center',
+                fontSize: 25,
+                fontFamily: 'Raleway-Normal'
+            },
+            headerLeft: () => (
+                <View style={{flexDirection: 'row', marginLeft: 10}}>
+                <Button
+                    onPress={() => navigation.navigate('MessagesIndex')}
+                    type='clear'
+                    icon={<Icon name='message' color='#26c1e0'/> }/>
+                </View>
+            ),
+            headerRight: () => (
+                <View style={{flexDirection: 'row', marginLeft: 10}}>
+                <Button
+                    onPress={() => navigation.navigate('ProfileUser')}
+                    type='clear'
+                    icon={<Icon name='account-circle' color='#26c1e0'/> }/>
+                </View>
+            ),
+        }
     },
     updateUser: ({ navigation }) => {
         return {
@@ -106,12 +126,13 @@ const title = {
             headerTitleStyle: {
                 marginLeft: 15,
                 fontSize: 25,
+                fontFamily: 'Raleway-Normal'
             },
             headerLeft: () => (
                 <Button
                     onPress={() => navigation.goBack()}
                     type='clear'
-                    icon={<Icon name='close' color='#000000'/> }
+                    icon={<Icon name='close' color='#85bec9'/> }
                 />
             ),
         }
