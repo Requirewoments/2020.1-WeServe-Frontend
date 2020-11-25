@@ -10,6 +10,8 @@ class ServiceCard extends Component {
         return (
         <View style={styles.container}>
             <Text style={styles.title}>{this.props.title}</Text>
+            <Text style={styles.service}>{this.props.service}</Text>
+            <Text style={styles.author}>Por: {truncate(this.props.authorname, 35) + (this.props.authorname.length > 35 ? '...' : '')}</Text>
             <View style={styles.horizontalDivider}/>
             <Text style={styles.description}>{truncate(this.props.description, 100)}</Text>
         </View>
@@ -26,9 +28,22 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 17,
-        textAlign: 'right',
+        textAlign: 'center',
         paddingHorizontal: 10,
         fontFamily: 'Raleway-Bold',
+        marginBottom: 5
+    },
+    service: {
+        fontSize: 15,
+        textAlign: 'center',
+        paddingHorizontal: 10,
+        fontFamily: 'Raleway-Normal',
+    },
+    author: {
+        fontSize: 15,
+        textAlign: 'center',
+        paddingHorizontal: 10,
+        fontFamily: 'Raleway-Italic',
         marginBottom: 5
     },
     description: {

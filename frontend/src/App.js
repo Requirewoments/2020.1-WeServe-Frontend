@@ -4,9 +4,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Button, Icon } from 'react-native-elements';
 
-// Home page
-import HomePage from './views/HomePage';
-
 // CRUD Serviços
 import ServicesIndex from './views/ServicesIndex'
 import ServiceView from './views/ServiceView'
@@ -29,16 +26,11 @@ export default (props) => {
     return (
         <UserProvider style={{fontFamily: 'Raleway-Normal'}}>
             <NavigationContainer>
-                <Stack.Navigator initialRouteName="HomePage">
+                <Stack.Navigator initialRouteName="ServicesIndex">
                     <Stack.Screen
                         name="ProfileUser"
                         component={ProfileUser}
                         options={title.profileUser}
-                    />
-                    <Stack.Screen
-                        name="HomePage"
-                        component={HomePage}
-                        options={title.homePage}
                     />
                     <Stack.Screen
                         name="UpdateUser"
@@ -94,7 +86,24 @@ const title = {
             ),
         }
     },
-    homePage: ({ navigation }) => {
+    updateUser: ({ navigation }) => {
+        return {
+            title: 'Atualizar cadastro',
+            headerTitleStyle: {
+                marginLeft: 15,
+                fontSize: 25,
+                fontFamily: 'Raleway-Normal'
+            },
+            headerLeft: () => (
+                <Button
+                    onPress={() => navigation.goBack()}
+                    type='clear'
+                    icon={<Icon name='close' color='#85bec9'/> }
+                />
+            ),
+        }
+    },
+    ServicesIndex: ({ navigation }) => {
         return {
             title: 'WeServe',
             headerTitleStyle: {
@@ -119,26 +128,6 @@ const title = {
                 </View>
             ),
         }
-    },
-    updateUser: ({ navigation }) => {
-        return {
-            title: 'Atualizar cadastro',
-            headerTitleStyle: {
-                marginLeft: 15,
-                fontSize: 25,
-                fontFamily: 'Raleway-Normal'
-            },
-            headerLeft: () => (
-                <Button
-                    onPress={() => navigation.goBack()}
-                    type='clear'
-                    icon={<Icon name='close' color='#85bec9'/> }
-                />
-            ),
-        }
-    },
-    ServicesIndex: {
-        title: 'Serviços'
     },
     ServiceView: {
         title: 'Serviço'
