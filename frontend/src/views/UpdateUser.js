@@ -9,22 +9,6 @@ export default props => {
     const [username, setUsername] = useState(state.user.username)
     const [email, setEmail] = useState(state.user.email)
 
-    function deleteUser() {
-        const id = '5fbed2869d25b87facf4e898'
-        const url_request = Globals.server_ip + `/user/${id}`;
-        fetch(url_request, {
-            method: 'DELETE',
-            headers: {
-                // Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                id: id,
-            })
-        }).then((e) => console.warn(e)).catch((e) => console.warn(e));
-    }
-    
-
     function confirmUpdate() {
         Alert.alert(
             "Confirmação:",
@@ -88,7 +72,10 @@ export default props => {
             />
             <Button
                 title='Delete'
-                onPress={deleteUser}
+                onPress={() => dispatch({
+                    type: 'updateUser',
+                    payload: new_user,
+                })}
             />
         </View>
     )
