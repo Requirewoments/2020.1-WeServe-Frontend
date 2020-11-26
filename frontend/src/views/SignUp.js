@@ -1,13 +1,23 @@
 import React, { useContext, useState } from 'react'
-import { TextInput, View, StyleSheet, Alert} from 'react-native'
+import { TextInput, View, StyleSheet, Alert } from 'react-native'
 import HomePageButton from '../components/HomePageActionButton'
-import {CommonActions} from '@react-navigation/native'
+import { CommonActions } from '@react-navigation/native'
 
 // Context 
 import UserContext from '../context/UserContext'
 
 export default props => {
-    const { state, dispatch} = useContext(UserContext)
+    const { state, dispatch } = useContext(UserContext)
+    if (state.user.email !== '') {
+        props.navigation.dispatch(
+            CommonActions.reset({
+                index: 0,
+                routes: [
+                    { name: 'ServicesIndex' },
+                ],
+            })
+        );
+    }
     const [name, setName] = useState(state.user.name)
     const [username, setUsername] = useState(state.user.username)
     const [email, setEmail] = useState(state.user.email)
@@ -30,7 +40,7 @@ export default props => {
         )
     }
 
-    function sendNewUser(){
+    function sendNewUser() {
         const new_user = {
             name: name,
             username: username,
@@ -47,13 +57,13 @@ export default props => {
         })
         props.navigation.dispatch(
             CommonActions.reset({
-              index: 0,
-              routes: [
-                { name: 'ServicesIndex' },
-              ],
+                index: 0,
+                routes: [
+                    { name: 'ServicesIndex' },
+                ],
             })
-          );
-    }   
+        );
+    }
 
     return (
         <View style={styles.form}>

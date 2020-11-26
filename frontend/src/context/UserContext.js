@@ -5,11 +5,11 @@ const InitialState = {
     user: {
         name: 'João Pedro',
         createdAt: '04/07/2020',
-        username: 'top dos tops',
+        username: 'joaopedro',
         profilePhoto: 'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
         password: 'as32AA',
-        birthday: '',
-        email: 'algo',
+        birthday: '04/07/2000',
+        email: '',
     }
 }
 

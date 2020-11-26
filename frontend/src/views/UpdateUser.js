@@ -1,5 +1,5 @@
-import React, { Component, useContext, useState } from 'react'
-import { Text, TextInput, View, StyleSheet, Button, Alert } from 'react-native'
+import React, {useContext, useState } from 'react'
+import {TextInput, View, StyleSheet, Button, Alert } from 'react-native'
 import UserContext from '../context/UserContext'
 import Globals from '../context/Globals'
 
