@@ -6,7 +6,7 @@ import MessageCard from '../components/MessageCard'
 class MessagesIndex extends Component {
 
     name = 'Cleber'
-    lastmessage = "koe bb vc lembro de comprar o pepino, hj a noite vai se 🔥🔥🔥 😈 😈 😈 "
+    lastmessage = "Pretendo trocar de serviço com você"
 
     render() {
         return (
