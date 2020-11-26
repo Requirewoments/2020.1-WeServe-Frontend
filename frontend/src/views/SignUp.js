@@ -1,13 +1,17 @@
-import React, { Component, useContext, useState } from 'react'
-import { Text, TextInput, View, StyleSheet, Button, Alert } from 'react-native'
+import React, { useContext, useState } from 'react'
+import { TextInput, View, StyleSheet, Button, Alert } from 'react-native'
+import HomePageButton from '../components/HomePageActionButton'
+
+// Context 
 import UserContext from '../context/UserContext'
-import Globals from '../context/Globals'
 
 export default props => {
     const { state, dispatch} = useContext(UserContext)
     const [name, setName] = useState(state.user.name)
     const [username, setUsername] = useState(state.user.username)
     const [email, setEmail] = useState(state.user.email)
+    const [password, setPassword] = useState(state.user.password)
+    const [birthday, setBirthday] = useState(state.user.birthday)
 
     function confirmUpdate() {
         Alert.alert(
@@ -18,11 +22,7 @@ export default props => {
                     text: "Cancelar",
                 },
                 {
-                    text: "Sair sem salvar",
-                    onPress: () => props.navigation.goBack(),
-                },
-                {
-                    text: "Confirma as alterações",
+                    text: "Criar conta",
                     onPress: () => sendNewUser()
                 }
             ],
@@ -35,14 +35,16 @@ export default props => {
             username: username,
             email: email,
             createdAt: state.user.createdAt,
-            profilePhoto: state.user.profilePhoto
+            profilePhoto: state.user.profilePhoto,
+            password: password,
+            birthday: birthday,
         }
         console.warn(Object.values(new_user))
         dispatch({
             type: 'updateUser',
             payload: new_user,
         })
-        props.navigation.goBack()
+        props.navigation.navigate('ServicesIndex')
     }   
 
     return (
@@ -50,32 +52,31 @@ export default props => {
             <TextInput
                 style={styles.textInput}
                 onChangeText={(name) => setName(name)}
-                value={name}
                 placeholder='Nome'
             />
             <TextInput
                 style={styles.textInput}
                 onChangeText={(username) => setUsername(username)}
-                value={username}
                 placeholder='Username'
             />
             <TextInput
                 style={styles.textInput}
                 onChangeText={(email) => setEmail(email)}
-                value={email}
                 placeholder='Email'
             />
-            <Button
-                title='Confirma alterações'
-                style={styles.confirmButton}
-                onPress={confirmUpdate}
+            <TextInput
+                style={styles.textInput}
+                onChangeText={(password) => setPassword(password)}
+                placeholder='Senha'
             />
-            <Button
-                title='Delete'
-                onPress={() => dispatch({
-                    type: 'updateUser',
-                    payload: new_user,
-                })}
+            <TextInput
+                style={styles.textInput}
+                onChangeText={(birthday) => setBirthday(birthday)}
+                placeholder='Data de nascimento'
+            />
+            <HomePageButton
+                title='Criar conta'
+                onPress={confirmUpdate}
             />
         </View>
     )
