@@ -13,7 +13,6 @@ const UserSchema = new mongoose.Schema({
     email: {
         type: String,
         require: [true, 'Email required!'],
-        unique: true,
         validate: {
             validator: function(email) {
                 return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)
@@ -24,7 +23,6 @@ const UserSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, 'A senha é obrigatória!'],
-        unique: true,
         validate: {
             validator: function (password) {
                 return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/.test(password)

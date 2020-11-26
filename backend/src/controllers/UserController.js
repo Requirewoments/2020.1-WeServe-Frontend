@@ -19,11 +19,17 @@ module.exports = {
         return response.json(user);
     },
     async create(request, response) {
-        const user = new User(request.body);
+        const {email} = request.body;
         
         try {
+            if (await User.findOne({ email })){
+                return response.status(400).json({error: "User already exists"});
+            }
+
+            const user = new User(request.body);
+
             await user.save();
-            return response.send(`${user.name} created!\nData: ${user}`);
+            return response.send(`${user}`);
         } catch(error) {
             console.log(error);
         }
