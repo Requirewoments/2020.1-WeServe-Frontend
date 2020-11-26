@@ -1,12 +1,29 @@
 import React, { Component, useContext, useState } from 'react'
 import { Text, TextInput, View, StyleSheet, Button, Alert } from 'react-native'
 import UserContext from '../context/UserContext'
+import Globals from '../context/Globals'
 
 export default props => {
     const { state, dispatch} = useContext(UserContext)
     const [name, setName] = useState(state.user.name)
     const [username, setUsername] = useState(state.user.username)
     const [email, setEmail] = useState(state.user.email)
+
+    function deleteUser() {
+        const id = '5fbed2869d25b87facf4e898'
+        const url_request = Globals.server_ip + `/user/${id}`;
+        fetch(url_request, {
+            method: 'DELETE',
+            headers: {
+                // Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: id,
+            })
+        }).then((e) => console.warn(e)).catch((e) => console.warn(e));
+    }
+    
 
     function confirmUpdate() {
         Alert.alert(
@@ -68,6 +85,10 @@ export default props => {
                 title='Confirma alterações'
                 style={styles.confirmButton}
                 onPress={confirmUpdate}
+            />
+            <Button
+                title='Delete'
+                onPress={deleteUser}
             />
         </View>
     )
