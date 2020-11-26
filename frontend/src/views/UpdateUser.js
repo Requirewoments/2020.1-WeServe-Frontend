@@ -1,7 +1,6 @@
 import React, {useContext, useState } from 'react'
 import {TextInput, View, StyleSheet, Button, Alert } from 'react-native'
 import UserContext from '../context/UserContext'
-import Globals from '../context/Globals'
 
 export default props => {
     const { state, dispatch} = useContext(UserContext)

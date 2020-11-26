@@ -24,7 +24,6 @@ const actions = {
         fetch(url_request, {
             method: 'PUT',
             headers: {
-                // Accept: 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
@@ -54,23 +53,24 @@ const actions = {
             })
         }).then((e) => console.warn(e)).catch((e) => console.warn(e));
     },
+    createUser(state, action) {
+        const url_request = Globals.server_ip + '/user'
+        const user = action.payload
+        fetch(url_request, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: user.name,
+                email: user.email,
+                password: user.password,
+            })
+        }).then((e) => console.warn(e.status)).catch((e) => console.warn(e));
+    }
 }
 
-function createUser(user) {
-    const url_request = Globals.server_ip + '/user'
-    fetch(url_request, {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            name: user.name,
-            email: user.email,
-            password: user.password,
-        })
-    }).then((e) => console.warn(e.status)).catch((e) => console.warn(e));
-}
 
 export const UserProvider = props => {
     function reducer(state, action) {
@@ -80,7 +80,6 @@ export const UserProvider = props => {
 
 
     const [state, dispatch] = useReducer(reducer, InitialState)
-    createUser(state.user)
 
     return (
         <UserContext.Provider value={{ state, dispatch }}>
