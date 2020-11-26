@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
-import { TextInput, View, StyleSheet, Button, Alert } from 'react-native'
+import { TextInput, View, StyleSheet, Alert} from 'react-native'
 import HomePageButton from '../components/HomePageActionButton'
+import {CommonActions} from '@react-navigation/native'
 
 // Context 
 import UserContext from '../context/UserContext'
@@ -44,7 +45,14 @@ export default props => {
             type: 'updateUser',
             payload: new_user,
         })
-        props.navigation.navigate('ServicesIndex')
+        props.navigation.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [
+                { name: 'ServicesIndex' },
+              ],
+            })
+          );
     }   
 
     return (
