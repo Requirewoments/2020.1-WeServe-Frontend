@@ -1,21 +1,27 @@
 import React, { Component } from 'react'
 import { StyleSheet, ScrollView, View, Text } from 'react-native'
 
-import ServiceCard from '../components/ServiceCard'
-import HomePageActionButton from '../components/HomePageActionButton'
 import Globals from '../context/Globals'
 
-class NeedIndex extends Component {
+import ServiceCard from '../components/ServiceCard'
+import UserContext from '../context/UserContext'
 
+class NeedIndex extends Component {
+    static contextType = UserContext
     constructor(props) {
         super(props)
 
         this.state = {
-            needs: [{}, {}]
+            needs: []
         }
-    }
 
+        //this.props.navigation.addListener('focus', e => {
+            //    this.fetchNeeds()
+            //});r
+        }
+        
     componentDidMount() {
+        console.log(this.context)
         this.fetchNeeds()
     }
 
@@ -41,6 +47,7 @@ class NeedIndex extends Component {
 
     updateNeeds(data) {
         this.setState({needs: data});
+        console.warn(this.state.needs[0].user)
     }
 
     render() {
@@ -50,12 +57,12 @@ class NeedIndex extends Component {
             {
                 this.state.needs.map(e => {
                     return (
-                        <View style={styles.container}>
-                            <Text style={styles.description}>{e.description}</Text>
-                            <Text>{e.offeredServices}</Text>
-                            <Text>{e.user}</Text>
-                            <Text>{e.createdAt}</Text>
-                        </View>
+                        <ServiceCard
+                            title={e.description}
+                            authorname={e.user}
+                            service={e.offeredServices}
+                            id={e._id}
+                            key={e._id}/>
                     )
                 })
             }
