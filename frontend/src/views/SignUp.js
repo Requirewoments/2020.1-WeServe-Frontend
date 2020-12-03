@@ -8,7 +8,7 @@ import UserContext from '../context/UserContext'
 
 export default props => {
     const { state, dispatch } = useContext(UserContext)
-    if (state.user.email !== '') {
+    if (state.user.email !== '' || true) {
         props.navigation.dispatch(
             CommonActions.reset({
                 index: 0,

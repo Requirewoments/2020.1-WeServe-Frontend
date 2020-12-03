@@ -117,14 +117,6 @@ const title = {
                 fontSize: 25,
                 fontFamily: 'Raleway-Normal'
             },
-            headerLeft: () => (
-                <View style={{flexDirection: 'row', marginLeft: 10}}>
-                <Button
-                    onPress={() => navigation.navigate('MessagesIndex')}
-                    type='clear'
-                    icon={<Icon name='message' color='#26c1e0'/> }/>
-                </View>
-            ),
             headerRight: () => (
                 <View style={{flexDirection: 'row', marginLeft: 10}}>
                 <Button
@@ -139,7 +131,7 @@ const title = {
         title: 'Serviço'
     },
     ServiceSubmit: {
-        title: 'Criar Serviço'
+        title: 'Serviço novo'
     },
     MessagesIndex: {
         title: 'Suas mensagens'

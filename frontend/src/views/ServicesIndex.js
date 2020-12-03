@@ -73,8 +73,7 @@ class Services extends Component {
             <View style={styles.createservicebutton}>
                 <HomePageActionButton
                     title="Criar/Solicitar serviço"
-                    onPress={() => this.props.navigation.navigate('ServiceSubmit')}
-                    />
+                    onPress={() => this.props.navigation.navigate('ServiceSubmit')}/>
             </View>
             <View style={styles.horizontalDivider}></View>
             {
@@ -102,6 +101,7 @@ const styles = StyleSheet.create({
     },
     createservicebutton: {
         paddingVertical: 10,
+        paddingHorizontal: 20
     },
     horizontalDivider: {
         marginVertical: 10,
