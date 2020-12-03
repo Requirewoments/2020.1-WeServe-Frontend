@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, TouchableHighlight } from 'react-native'
 
 function truncate(str, n){
     return (str.length > n) ? str.substr(0, n-1) : str;
@@ -8,13 +8,20 @@ function truncate(str, n){
 class ServiceCard extends Component {
     render() {
         return (
-        <View style={styles.container}>
-            <Text style={styles.title}>{this.props.title}</Text>
-            <Text style={styles.service}>{this.props.service}</Text>
-            <Text style={styles.author}>Por: {truncate(this.props.authorname, 35) + (this.props.authorname.length > 35 ? '...' : '')}</Text>
-            <View style={styles.horizontalDivider}/>
-            <Text style={styles.description}>{truncate(this.props.description, 100)}</Text>
-        </View>
+            <TouchableHighlight
+                style={styles.container}
+                underlayColor='#dadafa'
+                onPress={() =>
+                    this.props.navigation.navigate('ServiceView', { id: this.props.id})
+                }>
+                <View>
+                    <Text style={styles.title}>{this.props.title}</Text>
+                    <Text style={styles.service}>{this.props.category}</Text>
+                    <Text style={styles.author}>Por: {truncate(this.props.author, 35) + (this.props.author.length > 35 ? '...' : '')}</Text>
+                    <View style={styles.horizontalDivider}/>
+                    <Text style={styles.description}>{truncate(this.props.description, 100)}</Text>
+                </View>
+            </TouchableHighlight>
         )
     }
 }

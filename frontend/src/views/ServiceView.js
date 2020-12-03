@@ -1,15 +1,64 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, ScrollView } from 'react-native'
+import { StyleSheet, Text, ScrollView, View, RefreshControl } from 'react-native'
 
 class ServiceView extends Component {
 
-    title = 'Where can I get some work and sutff'
-    description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into elect"
+    constructor(props) {
+        super(props)
+        this.state = {
+            title: '',
+            author: '',
+            category: '',
+            description: '',
+            refreshing: false
+        }
+        this.props.navigation.addListener('focus', e => {
+            this.fetchService(this.state.id)
+        });
+    }
+
+    componentDidMount() {
+        const params = this.props.route.params
+        this.setState(params)
+        this.fetchService(params.id)
+    }
+
+    async fetchService(id) {
+        let response = {}
+        
+        await fetch("http://192.168.0.4:3003/service/" + id)
+            .then(e => e.text())
+            .then(e => response = JSON.parse(e))
+            .catch(e => console.log('REQUEST ERROR:', e))
+        
+        this.setState(response)
+    }
 
     render() {
         return (
-        <ScrollView style={styles.container}>
-            <Text>servisso</Text> 
+        <ScrollView
+            style={styles.container}
+            refreshControl={
+                <RefreshControl 
+                    refreshing={this.state.refreshing} 
+                    onRefresh={() => {
+                        this.fetchService()
+                    }}/>
+            }>
+            <Text
+                style={styles.title}>
+                {this.state.title}
+            </Text>
+            <Text
+                style={styles.authorcategory}>
+                {this.state.category} de {this.state.author}
+            </Text>
+            <View
+                style={styles.descriptioncontainer}>
+                    <Text>
+                        {this.state.description}
+                    </Text>
+            </View>
         </ScrollView>
         )
     }
@@ -17,8 +66,28 @@ class ServiceView extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        marginBottom: 10,
-        backgroundColor: '#fafafa'
+        paddingBottom: 10,
+        backgroundColor: '#fafafa',
+        paddingTop: 10
+    },
+    title: {
+        fontFamily: 'Raleway-Bold',
+        fontSize: 25,
+        textAlign: 'center'
+    },
+    authorcategory: {
+        fontFamily: 'Raleway-Light',
+        fontSize: 18,
+        textAlign: 'center',
+        marginTop: 10
+    },
+    descriptioncontainer: {
+        borderWidth: 0.2,
+        backgroundColor: '#fff',
+        padding: 10,
+        borderRadius: 10,
+        marginHorizontal: 20,
+        marginTop: 20
     }
 })
 
