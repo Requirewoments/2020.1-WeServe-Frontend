@@ -4,27 +4,27 @@ import { StyleSheet, ScrollView, View } from 'react-native'
 import ServiceCard from '../components/ServiceCard'
 import HomePageActionButton from '../components/HomePageActionButton'
 
-class Services extends Component {
+class NeedIndex extends Component {
 
     constructor(props) {
         super(props)
 
         this.state = {
-            services: []
+            needs: []
         }
     }
 
     componentDidMount() {
-        this.fetchServices()
+        this.fetchNeeds()
     }
 
-    fetchServices() {
-        let services = [
+    fetchNeeds() {
+        let needs = [
             {
                 id: 23,
                 title: 'Limpa-pscina do cleber',
                 description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been",
-                service: 'Limpeza',
+                need: 'Limpeza',
                 authorname: 'Clebin souza silva maria jose joao antonio pedro maria',
             },
             {
@@ -64,24 +64,12 @@ class Services extends Component {
             },
         ]
 
-        this.setState({ services: services })
+        this.setState({ needs: needs })
     }
 
     render() {
         return (
         <ScrollView style={styles.container}>
-            <View style={styles.createservicebutton}>
-                <HomePageActionButton
-                    title="Criar/Solicitar serviço"
-                    onPress={() => this.props.navigation.navigate('ServiceSubmit')}
-                    />
-            </View>
-            <View style={styles.createservicebutton}>
-                <HomePageActionButton
-                    title="Necessidades de trabalho"
-                    onPress={() => this.props.navigation.navigate('NeedIndex')}
-                    />
-            </View>
             <View style={styles.horizontalDivider}></View>
             {
                 this.state.services.map(e => {
@@ -89,7 +77,7 @@ class Services extends Component {
                         <ServiceCard
                             title={e.title}
                             authorname={e.authorname}
-                            service={e.service}
+                            need={e.need}
                             description={e.description}
                             id={e.id}
                             key={e.id}/>
@@ -117,4 +105,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Services
+export default NeedIndex
