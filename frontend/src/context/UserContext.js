@@ -3,14 +3,15 @@ import Globals from './Globals'
 
 const InitialState = {
     user: {
-        name: 'João Pedro',
-        createdAt: '04/07/2020',
-        username: 'joaopedro',
+        name: '',
+        createdAt: '',
+        username: '',
         profilePhoto: 'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
-        password: 'as32AA',
-        birthday: '04/07/2000',
+        password: '',
+        birthday: '',
         email: '',
-    }
+    },
+    error: 'null'
 }
 
 const UserContext = createContext({})
@@ -54,20 +55,18 @@ const actions = {
         }).then((e) => console.warn(e)).catch((e) => console.warn(e));
     },
     createUser(state, action) {
-        const url_request = Globals.server_ip + '/user'
-        const user = action.payload
-        fetch(url_request, {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: user.name,
-                email: user.email,
-                password: user.password,
-            })
-        }).then((e) => console.warn(e.status)).catch((e) => console.warn(e));
+        const n_user = action.payload
+        const user = {
+            ...state.user,
+            name: n_user.name,
+            email: n_user.email,
+            username: n_user.username,
+            password: n_user.password,
+        }
+        return {
+            ...state,
+            user: user
+        }
     }
 }
 

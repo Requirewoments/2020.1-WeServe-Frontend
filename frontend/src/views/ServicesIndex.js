@@ -66,6 +66,12 @@ class Services extends Component {
                     title="Oferecer/Solicitar serviço"
                     onPress={() => this.props.navigation.navigate('ServiceSubmit')}/>
             </View>
+            <View style={styles.createservicebutton}>
+                <HomePageActionButton
+                    title="Necessidades de trabalho"
+                    onPress={() => this.props.navigation.navigate('NeedIndex')}
+                    />
+            </View>
             <View style={styles.horizontalDivider}></View>
             <Text style={{
                 fontFamily: 'Raleway-Light',

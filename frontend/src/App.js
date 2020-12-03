@@ -14,6 +14,7 @@ import ServiceEdit from './views/ServiceEdit'
 import ProfileUser from './views/ProfileUser';
 import UpdateUser from './views/UpdateUser';
 import SignUp from './views/SignUp';
+import Login from './views/Login'
 
 // CRUD Messages
 import MessagesIndex from './views/MessagesIndex'
@@ -22,13 +23,26 @@ import MessageView from './views/MessageView'
 // Context user
 import { UserProvider } from './context/UserContext';
 
+// Work need
+import NeedIndex from './views/NeedIndex'
+
 const Stack = createStackNavigator();
 
 export default (props) => {
     return (
         <UserProvider style={{fontFamily: 'Raleway-Normal'}}>
             <NavigationContainer>
-                <Stack.Navigator initialRouteName="SignUp">
+                <Stack.Navigator initialRouteName="ServicesIndex">
+                    <Stack.Screen
+                        name="NeedIndex"
+                        component={NeedIndex}
+                        options={title.needIndex}
+                    />
+                    <Stack.Screen
+                        name="Login"
+                        component={Login}
+                        options={title.login}
+                    />
                     <Stack.Screen
                         name="SignUp"
                         component={SignUp}
@@ -198,5 +212,17 @@ const title = {
     },
     signUp: {
         title: 'Criar conta'
-    }
+    },
+    login: ({navigation}) => {
+        return {
+            headerRight: () => (
+                <View style={{flexDirection: 'row', marginLeft: 10}}>
+                <Button
+                    onPress={() => navigation.navigate('SignUp')}
+                    type='clear'
+                    icon={<Icon name='add' color='#26c1e0'/> }/>
+                </View>
+            ),
+        }
+    },
 };
