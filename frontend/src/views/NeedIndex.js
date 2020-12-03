@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { StyleSheet, ScrollView, View } from 'react-native'
+import { StyleSheet, ScrollView, View, Text } from 'react-native'
 
 import ServiceCard from '../components/ServiceCard'
 import HomePageActionButton from '../components/HomePageActionButton'
+import Globals from '../context/Globals'
 
 class NeedIndex extends Component {
 
@@ -10,7 +11,7 @@ class NeedIndex extends Component {
         super(props)
 
         this.state = {
-            needs: []
+            needs: [{}, {}]
         }
     }
 
@@ -19,52 +20,27 @@ class NeedIndex extends Component {
     }
 
     fetchNeeds() {
-        let needs = [
-            {
-                id: 23,
-                title: 'Limpa-pscina do cleber',
-                description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been",
-                need: 'Limpeza',
-                authorname: 'Clebin souza silva maria jose joao antonio pedro maria',
-            },
-            {
-                id: 25,
-                title: 'Entrego coisas',
-                description: "dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into elect",
-                service: 'Delivery (até 1 quilo, à pé)',
-                authorname: 'Vitin joao antonio pedro maria',
-            },
-            {
-                id: 32,
-                title: 'Faço massagens',
-                description: " industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into elect",
-                service: 'Massagem',
-                authorname: 'marcelo maria jose joao antonio pedro maria',
-            },
-            {
-                id: 81,
-                title: 'Musico',
-                description: " industry. Lorem Ipsum has been the industry's standard book. It has survived not only five centuries, but also the leap into elect",
-                service: 'Música',
-                authorname: 'Mario maria jose joao antonio pedro maria',
-            },
-            {
-                id: 2123213,
-                title: 'Artes cênicas?',
-                description: "I like to act too much",
-                service: '',
-                authorname: 'Pedrin souza silva maria jose joao antonio pedro maria',
-            },
-            {
-                id: 0,
-                title: 'Limpo ar condicionado ',
-                description: "Renovo o ar do seu ar condicionado",
-                service: 'limpeza',
-                authorname: 'Chris',
-            },
-        ]
+        const email = 'gabrielle@email.com'
+        const url_requets = Globals.server_ip + '/work-need'
+        const requestInfoDia = {
+            method: 'GET',
+            headers: new Headers({
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            }),
+        };
 
-        this.setState({ needs: needs })
+        fetch(url_requets, requestInfoDia).then((e) =>{
+            return e.json()
+        }).then((data) => {
+            this.updateNeeds(data)
+        }).catch((e) => {
+            console.warn(e.status)
+        })
+    }
+
+    updateNeeds(data) {
+        this.setState({needs: data});
     }
 
     render() {
@@ -72,15 +48,14 @@ class NeedIndex extends Component {
         <ScrollView style={styles.container}>
             <View style={styles.horizontalDivider}></View>
             {
-                this.state.services.map(e => {
+                this.state.needs.map(e => {
                     return (
-                        <ServiceCard
-                            title={e.title}
-                            authorname={e.authorname}
-                            need={e.need}
-                            description={e.description}
-                            id={e.id}
-                            key={e.id}/>
+                        <View style={styles.container}>
+                            <Text style={styles.description}>{e.description}</Text>
+                            <Text>{e.offeredServices}</Text>
+                            <Text>{e.user}</Text>
+                            <Text>{e.createdAt}</Text>
+                        </View>
                     )
                 })
             }
@@ -92,9 +67,10 @@ class NeedIndex extends Component {
 const styles = StyleSheet.create({
     container: {
         marginBottom: 10,
-        backgroundColor: '#fafafa'
+        backgroundColor: '#fafafa',
+        marginHorizontal: 10,
     },
-    createservicebutton: {
+    createneedbutton: {
         paddingVertical: 10,
     },
     horizontalDivider: {
@@ -102,6 +78,10 @@ const styles = StyleSheet.create({
         borderBottomColor: '#bababa',
         borderBottomWidth: 1,
         marginHorizontal: 15
+    },
+    description: {
+        fontSize: 18,
+        fontWeight: 'bold'
     }
 })
 

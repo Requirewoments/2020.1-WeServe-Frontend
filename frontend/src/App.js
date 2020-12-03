@@ -31,7 +31,7 @@ export default (props) => {
     return (
         <UserProvider style={{fontFamily: 'Raleway-Normal'}}>
             <NavigationContainer>
-                <Stack.Navigator initialRouteName="ServicesIndex">
+                <Stack.Navigator initialRouteName="NeedIndex">
                     <Stack.Screen
                         name="NeedIndex"
                         component={NeedIndex}
