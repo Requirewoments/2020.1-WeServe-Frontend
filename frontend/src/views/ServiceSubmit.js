@@ -100,7 +100,7 @@ class Services extends Component {
 
         let success = false
         let resultData = null
-        await this.fetchWithTimeout("http://192.168.0.4:3003/service/", requestOptions)
+        await this.fetchWithTimeout("https://requisitos-weserve.herokuapp.com/service/", requestOptions)
             .then(response => response.text())
             .then(result => {
                 success = true

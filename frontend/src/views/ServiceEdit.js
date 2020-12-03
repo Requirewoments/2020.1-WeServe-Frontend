@@ -60,7 +60,7 @@ class ServiceEdit extends Component {
     async fetchAndUpdate() {
         response = null
         id = this.props.route.params.id
-        await fetch("http://192.168.0.4:3003/service/" + id)
+        await fetch("https://requisitos-weserve.herokuapp.com/service/" + id)
             .then(e => e.text())
             .then(e => response = JSON.parse(e))
             .catch(e => console.log('REQUEST ERROR:', e))
@@ -76,7 +76,6 @@ class ServiceEdit extends Component {
             category: response.category
         })
         this.state.descriptionRef.updateText(response.description)
-        // this.state.descriptionRef.updateText(response.description)
 
     }
 
@@ -132,7 +131,7 @@ class ServiceEdit extends Component {
         }
 
         let success = false
-        await this.fetchWithTimeout("http://192.168.0.4:3003/service/" + this.state.id, 
+        await this.fetchWithTimeout("https://requisitos-weserve.herokuapp.com/service/" + this.state.id, 
             requestOptions)
             .then(response => response.text())
             .then(() => {

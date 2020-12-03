@@ -32,7 +32,7 @@ export default (props) => {
     return (
         <UserProvider style={{fontFamily: 'Raleway-Normal'}}>
             <NavigationContainer>
-                <Stack.Navigator initialRouteName="ServicesIndex">
+                <Stack.Navigator initialRouteName="Login">
                     <Stack.Screen
                         name="NeedIndex"
                         component={NeedIndex}
@@ -184,7 +184,7 @@ const title = {
                     }}>
                     <Button
                         onPress={async () => {
-                            await fetch("http://192.168.0.4:3003/service/" 
+                            await fetch("https://requisitos-weserve.herokuapp.com/service/" 
                                 + route.params.id, {
                                 method: 'DELETE'
                             })

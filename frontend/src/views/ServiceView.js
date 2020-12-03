@@ -26,7 +26,7 @@ class ServiceView extends Component {
     async fetchService(id) {
         let response = {}
         
-        await fetch("http://192.168.0.4:3003/service/" + id)
+        await fetch("https://requisitos-weserve.herokuapp.com/service/" + id)
             .then(e => e.text())
             .then(e => response = JSON.parse(e))
             .catch(e => console.log('REQUEST ERROR:', e))

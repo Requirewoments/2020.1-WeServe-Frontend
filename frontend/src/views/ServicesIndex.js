@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useContext, useState } from 'react'
 import { 
     StyleSheet,
     ScrollView,View,
@@ -6,26 +6,27 @@ import {
     Text
 } from 'react-native'
 
-import { useFocusEffect } from '@react-navigation/native';
+import UserContext from '../context/UserContext'
 
 import ServiceCard from '../components/ServiceCard'
 import HomePageActionButton from '../components/HomePageActionButton'
 
 class Services extends Component {
-
     constructor(props) {
         super(props)
-
+        
         this.state = {
             services: [],
             refreshing: false,
         }
-
+        
         this.props.navigation.addListener('focus', e => {
             this.fetchServices()
         });
+        
+        console.log(this.props)
     }
-
+    
     componentDidMount() {
         this.fetchServices()
     }
@@ -33,7 +34,7 @@ class Services extends Component {
     async fetchServices() {
         let services = []
         
-        await fetch("http://192.168.0.4:3003/service/")
+        await fetch("https://requisitos-weserve.herokuapp.com/service/")
             .then(response => response.text())
             .then(result => {
                 services = JSON.parse(result)
@@ -105,7 +106,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#fafafa'
     },
     createservicebutton: {
-        paddingVertical: 10,
         paddingHorizontal: 20
     },
     horizontalDivider: {
@@ -116,4 +116,19 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Services
+export default (props) => {
+    const { state, dispatch } = useContext(UserContext)
+    const [name, setName] = useState(state.user.name)
+    const [username, setUsername] = useState(state.user.username)
+    const [email, setEmail] = useState(state.user.email)
+
+    context = {
+        name: name,
+        email: email,
+        username: username
+    }
+
+    return (
+        <Services userContext={context} {...props}/>
+    )
+}
