@@ -10,6 +10,7 @@ import UserContext from '../context/UserContext'
 
 import ServiceCard from '../components/ServiceCard'
 import HomePageActionButton from '../components/HomePageActionButton'
+import Globals from '../context/Globals'
 
 class Services extends Component {
     constructor(props) {
@@ -23,8 +24,6 @@ class Services extends Component {
         this.props.navigation.addListener('focus', e => {
             this.fetchServices()
         });
-        
-        console.log(this.props)
     }
     
     componentDidMount() {
@@ -33,7 +32,7 @@ class Services extends Component {
 
     async fetchServices() {
         let services = []
-        
+        const url_request = Globals.server_ip + 'service/'
         await fetch("https://requisitos-weserve.herokuapp.com/service/")
             .then(response => response.text())
             .then(result => {
@@ -67,12 +66,6 @@ class Services extends Component {
                     title="Oferecer/Solicitar serviço"
                     onPress={() => this.props.navigation.navigate('ServiceSubmit')}/>
             </View>
-            <View style={styles.createservicebutton}>
-                <HomePageActionButton
-                    title="Necessidades de trabalho"
-                    onPress={() => this.props.navigation.navigate('NeedIndex')}
-                    />
-            </View>
             <View style={styles.horizontalDivider}></View>
             <Text style={{
                 fontFamily: 'Raleway-Light',
@@ -91,7 +84,7 @@ class Services extends Component {
                             description={e.description}
                             id={e.id}
                             key={e.id}
-                            navigation={this.props.navigation}/>
+                            onPress={() => this.props.navigation.navigate("ServiceView", {id: e.id})}/>
                     )
                 })
             }

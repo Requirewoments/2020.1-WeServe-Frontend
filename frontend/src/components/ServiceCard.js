@@ -11,9 +11,7 @@ class ServiceCard extends Component {
             <TouchableHighlight
                 style={styles.container}
                 underlayColor='#dadafa'
-                onPress={() =>
-                    this.props.navigation.navigate('ServiceView', { id: this.props.id})
-                }>
+                onPress={this.props.onPress}>
                 <View>
                     <Text style={styles.title}>{this.props.title}</Text>
                     <Text style={styles.service}>{this.props.category}</Text>

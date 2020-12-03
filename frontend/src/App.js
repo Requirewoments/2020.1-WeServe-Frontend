@@ -23,27 +23,13 @@ import MessageView from './views/MessageView'
 // Context user
 import { UserProvider } from './context/UserContext';
 
-// Work need
-import NeedIndex from './views/NeedIndex'
-import NeedSubmit from './views/NeedSubmit'
-
 const Stack = createStackNavigator();
 
 export default (props) => {
     return (
-        <UserProvider style={{fontFamily: 'Raleway-Normal'}}>
+        <UserProvider style={{ fontFamily: 'Raleway-Normal' }}>
             <NavigationContainer>
-                <Stack.Navigator initialRouteName="NeedIndex">
-                    <Stack.Screen
-                        name="NeedSubmit"
-                        component={NeedSubmit}
-                        options={title.needSubmit}
-                    />
-                    <Stack.Screen
-                        name="NeedIndex"
-                        component={NeedIndex}
-                        options={title.needIndex}
-                    />
+                <Stack.Navigator initialRouteName="ServicesIndex">
                     <Stack.Screen
                         name="Login"
                         component={Login}
@@ -105,15 +91,15 @@ const title = {
         return {
             title: 'Perfil de usuário',
             headerTitleStyle: {
-            marginLeft: 15,
-            fontSize: 25,
-            fontFamily: 'Raleway-Normal'
+                marginLeft: 15,
+                fontSize: 25,
+                fontFamily: 'Raleway-Normal'
             },
             headerRight: () => (
                 <Button
                     onPress={() => navigation.navigate('UpdateUser')}
                     type='clear'
-                    icon={<Icon name='edit' color='#000000'/> }
+                    icon={<Icon name='edit' color='#000000' />}
                 />
             ),
         }
@@ -130,7 +116,7 @@ const title = {
                 <Button
                     onPress={() => navigation.goBack()}
                     type='clear'
-                    icon={<Icon name='close' color='#85bec9'/> }
+                    icon={<Icon name='close' color='#85bec9' />}
                 />
             ),
         }
@@ -145,11 +131,11 @@ const title = {
                 textAlign: 'left'
             },
             headerRight: () => (
-                <View style={{flexDirection: 'row', marginLeft: 10}}>
-                <Button
-                    onPress={() => navigation.navigate('ProfileUser')}
-                    type='clear'
-                    icon={<Icon name='account-circle' color='#26c1e0'/> }/>
+                <View style={{ flexDirection: 'row', marginLeft: 10 }}>
+                    <Button
+                        onPress={() => navigation.navigate('ProfileUser')}
+                        type='clear'
+                        icon={<Icon name='account-circle' color='#26c1e0' />} />
                 </View>
             ),
         }
@@ -189,23 +175,24 @@ const title = {
                         flexDirection: 'row'
                     }}>
                     <Button
+
                         onPress={async () => {
-                            await fetch("https://requisitos-weserve.herokuapp.com/service/" 
+                            await fetch("https://requisitos-weserve.herokuapp.com/service/"
                                 + route.params.id, {
                                 method: 'DELETE'
                             })
                             navigation.navigate('ServicesIndex')
                         }}
                         type='clear'
-                        icon={<Icon name='delete' color='#000000'/> }
-                        />
+                        icon={<Icon name='delete' color='#000000' style={{ marginRight: 10 }} />}
+                    />
                     <Button
                         onPress={() => navigation.navigate('ServiceEdit', {
                             id: route.params.id
                         })}
                         type='clear'
-                        icon={<Icon name='edit' color='#000000'/> }
-                        />
+                        icon={<Icon name='edit' color='#000000' />}
+                    />
                 </View>
             ),
         }
@@ -219,30 +206,14 @@ const title = {
     signUp: {
         title: 'Criar conta'
     },
-    login: ({navigation}) => {
+    login: ({ navigation }) => {
         return {
             headerRight: () => (
-                <View style={{flexDirection: 'row', marginLeft: 10}}>
-                <Button
-                    onPress={() => navigation.navigate('SignUp')}
-                    type='clear'
-                    icon={<Icon name='add' color='#26c1e0'/> }/>
-                </View>
-            ),
-        }
-    },
-    needSubmit: {
-        title: 'Nova Necessidade',
-    },
-    needIndex: ({navigation}) => {
-        return {
-            title: "Necessidade",
-            headerRight: () => (
-                <View style={{flexDirection: 'row', marginLeft: 10}}>
-                <Button
-                    onPress={() => navigation.navigate('NeedSubmit')}
-                    type='clear'
-                    icon={<Icon name='add' color='#26c1e0'/> }/>
+                <View style={{ flexDirection: 'row', marginLeft: 10 }}>
+                    <Button
+                        onPress={() => navigation.navigate('SignUp')}
+                        type='clear'
+                        icon={<Icon name='add' color='#26c1e0' />} />
                 </View>
             ),
         }
