@@ -36,7 +36,7 @@ class NeedSubmit extends Component {
         };
 
         fetch(url_request, requestInfoDia).then((e) =>{
-            console.warn(e.status)
+            // console.warn(e.status)
         }).catch((e) => {
             console.warn(e.status)
         })

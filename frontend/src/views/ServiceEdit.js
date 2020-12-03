@@ -13,6 +13,14 @@ class AutoExpandingTextInput extends React.Component {
         };
     }
 
+    async updateText(text) {
+        console.log('received')
+        await this.setState({
+            text: text
+        })
+        console.log(this.state)
+    }
+
     render() {
         return (
             <TextInput
@@ -20,7 +28,6 @@ class AutoExpandingTextInput extends React.Component {
                 multiline={true}
                 onChangeText={(text) => {
                     this.setState({ text })
-                    text = text
                 }}
                 onContentSizeChange={(event) => {
                     this.setState({ height: event.nativeEvent.contentSize.height })
@@ -32,7 +39,7 @@ class AutoExpandingTextInput extends React.Component {
     }
 }
 
-class Services extends Component {
+class ServiceEdit extends Component {
 
     constructor(props) {
         super(props)
@@ -42,7 +49,34 @@ class Services extends Component {
             author: '',
             description: '',
             error_message:  '',
+            descriptionRef: null
         }
+    }
+
+    componentDidMount() {
+        this.fetchAndUpdate()
+    }
+
+    async fetchAndUpdate() {
+        response = null
+        id = this.props.route.params.id
+        await fetch("https://requisitos-weserve.herokuapp.com/service/" + id)
+            .then(e => e.text())
+            .then(e => response = JSON.parse(e))
+            .catch(e => console.log('REQUEST ERROR:', e))
+        response.id = response['_id']
+        delete response['_id']
+        delete response['__v']
+        delete response['createdAt']
+        this.setState({
+            title: response.title,
+            id: response.id,
+            author: response.author,
+            description: response.description,
+            category: response.category
+        })
+        this.state.descriptionRef.updateText(response.description)
+
     }
 
     async fetchWithTimeout(resource, options) {
@@ -60,10 +94,8 @@ class Services extends Component {
         return response;
     }
 
-    handleCreate(res) {
-        this.props.navigation.replace('ServiceView', {
-            id: res['_id']
-        })
+    handleCreate() {
+        this.props.navigation.goBack()
     }
 
     async createService() {
@@ -92,23 +124,22 @@ class Services extends Component {
         headers.append("Content-Type", "application/json")
 
         let requestOptions = {
-            method: 'POST',
+            method: 'PUT',
             headers: headers,
             body: JSON.stringify(service),
             redirect: 'follow'
         }
 
         let success = false
-        let resultData = null
-        await this.fetchWithTimeout("https://requisitos-weserve.herokuapp.com/service/", requestOptions)
+        await this.fetchWithTimeout("https://requisitos-weserve.herokuapp.com/service/" + this.state.id, 
+            requestOptions)
             .then(response => response.text())
-            .then(result => {
+            .then(() => {
                 success = true
-                resultData = JSON.parse(result)
             })
             .catch(error => console.log('REQUEST ERROR:', error))
         if (success) {
-            this.handleCreate(resultData)
+            this.handleCreate()
         }
     }
 
@@ -147,16 +178,22 @@ class Services extends Component {
                     </Text>
                     <AutoExpandingTextInput
                         placeholder='Descrição'
+                        value={this.state.description}
+                        ref={(ref) => {
+                            if (this.state.descriptionRef !== null) return
+                            this.setState({ descriptionRef: ref })
+                        }}
                         onChange={(obj) => {
                             this.setState({ description: obj.nativeEvent.text })
                         }} />
                     <TextInput
                         style={styles.textinput}
                         placeholder='Autor'
+                        value={this.state.author}
                         onChangeText={text => this.setState({ author: text })}/>
                     <View style={{ height: 10 }}></View>
                     <HomePageActionButton
-                        title="Criar!"
+                        title="Editar!"
                         onPress={() => this.createService()}
                         style={styles.createbutton} />
                     <View style={{ height: 20 }}></View>
@@ -206,4 +243,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Services
+export default ServiceEdit

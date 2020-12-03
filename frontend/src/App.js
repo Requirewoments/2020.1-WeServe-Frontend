@@ -8,6 +8,7 @@ import { Button, Icon } from 'react-native-elements';
 import ServicesIndex from './views/ServicesIndex'
 import ServiceView from './views/ServiceView'
 import ServiceSubmit from './views/ServiceSubmit'
+import ServiceEdit from './views/ServiceEdit'
 
 // CRUD User
 import ProfileUser from './views/ProfileUser';
@@ -79,6 +80,11 @@ export default (props) => {
                         options={title.ServiceSubmit}
                     />
                     <Stack.Screen
+                        name="ServiceEdit"
+                        component={ServiceEdit}
+                        options={title.ServiceEdit}
+                    />
+                    <Stack.Screen
                         name="MessagesIndex"
                         component={MessagesIndex}
                         options={title.MessagesIndex}
@@ -133,18 +139,11 @@ const title = {
         return {
             title: 'WeServe',
             headerTitleStyle: {
-                alignSelf: 'center',
-                fontSize: 25,
-                fontFamily: 'Raleway-Normal'
+                marginLeft: 15,
+                fontSize: 20,
+                fontFamily: 'Raleway-Bold',
+                textAlign: 'left'
             },
-            headerLeft: () => (
-                <View style={{flexDirection: 'row', marginLeft: 10}}>
-                <Button
-                    onPress={() => navigation.navigate('MessagesIndex')}
-                    type='clear'
-                    icon={<Icon name='message' color='#26c1e0'/> }/>
-                </View>
-            ),
             headerRight: () => (
                 <View style={{flexDirection: 'row', marginLeft: 10}}>
                 <Button
@@ -155,11 +154,61 @@ const title = {
             ),
         }
     },
-    ServiceView: {
-        title: 'Serviço'
+    ServiceEdit: ({ navigation }) => {
+        return {
+            title: 'Editar Serviço',
+            headerTitleStyle: {
+                fontSize: 20,
+                fontFamily: 'Raleway-Bold',
+                textAlign: 'left',
+                marginBottom: 5
+            },
+        }
     },
-    ServiceSubmit: {
-        title: 'Criar Serviço'
+    ServiceSubmit: ({ navigation }) => {
+        return {
+            title: 'Serviço novo',
+            headerTitleStyle: {
+                fontSize: 20,
+                fontFamily: 'Raleway-Bold',
+                textAlign: 'left'
+            },
+        }
+    },
+    ServiceView: ({ navigation, route }) => {
+        return {
+            title: 'Serviço',
+            headerTitleStyle: {
+                fontSize: 20,
+                fontFamily: 'Raleway-Bold',
+                textAlign: 'left'
+            },
+            headerRight: () => (
+                <View
+                    style={{
+                        flexDirection: 'row'
+                    }}>
+                    <Button
+                        onPress={async () => {
+                            await fetch("https://requisitos-weserve.herokuapp.com/service/" 
+                                + route.params.id, {
+                                method: 'DELETE'
+                            })
+                            navigation.navigate('ServicesIndex')
+                        }}
+                        type='clear'
+                        icon={<Icon name='delete' color='#000000'/> }
+                        />
+                    <Button
+                        onPress={() => navigation.navigate('ServiceEdit', {
+                            id: route.params.id
+                        })}
+                        type='clear'
+                        icon={<Icon name='edit' color='#000000'/> }
+                        />
+                </View>
+            ),
+        }
     },
     MessagesIndex: {
         title: 'Suas mensagens'

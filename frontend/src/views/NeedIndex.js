@@ -7,22 +7,12 @@ import ServiceCard from '../components/ServiceCard'
 import UserContext from '../context/UserContext'
 
 class NeedIndex extends Component {
-    static contextType = UserContext
     constructor(props) {
         super(props)
 
         this.state = {
             needs: []
         }
-
-        //this.props.navigation.addListener('focus', e => {
-            //    this.fetchNeeds()
-            //});r
-        }
-        
-    componentDidMount() {
-        console.log(this.context)
-        this.fetchNeeds()
     }
 
     fetchNeeds() {
@@ -40,17 +30,15 @@ class NeedIndex extends Component {
             return e.json()
         }).then((data) => {
             this.updateNeeds(data)
-        }).catch((e) => {
-            console.warn(e.status)
-        })
+        }).catch((e) => {})
     }
 
     updateNeeds(data) {
         this.setState({needs: data});
-        console.warn(this.state.needs[0].user)
     }
 
     render() {
+        this.fetchNeeds()
         return (
         <ScrollView style={styles.container}>
             <View style={styles.horizontalDivider}></View>
@@ -59,7 +47,7 @@ class NeedIndex extends Component {
                     return (
                         <ServiceCard
                             title={e.description}
-                            authorname={e.user}
+                            author={e.user}
                             service={e.offeredServices}
                             id={e._id}
                             key={e._id}/>

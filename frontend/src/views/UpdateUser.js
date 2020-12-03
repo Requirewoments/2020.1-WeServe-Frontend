@@ -3,7 +3,7 @@ import {TextInput, View, StyleSheet, Button, Alert } from 'react-native'
 import UserContext from '../context/UserContext'
 
 export default props => {
-    const { state, dispatch} = useContext(UserContext)
+    const { state, dispatch } = useContext(UserContext)
     const [name, setName] = useState(state.user.name)
     const [username, setUsername] = useState(state.user.username)
     const [email, setEmail] = useState(state.user.email)

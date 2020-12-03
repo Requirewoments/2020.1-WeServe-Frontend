@@ -39,19 +39,19 @@ function validateFields(email, password){
         return false;
     }
     if (!validatePassword(password)){
-        showError("Senha inválida", "Insira uma senha valida")
+        showError("Senha inválida", "Sua senha deve conter 6-20 caracteres, entre eles no mínimo um número, uma letra maiúscula e uma minúscula")
         return false;
     }
     return true;
 }
 
 function validatePassword(password){
-    const reg = /[A-Z][a-z]/gm
+    const reg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/gm
     return (reg.test(password) && password.length >= 6 && password.length <= 20)
 }
 
 function validateEmail(email){
-    const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    const reg = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     return reg.test(email);
 }
 
