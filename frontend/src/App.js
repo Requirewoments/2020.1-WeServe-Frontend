@@ -25,6 +25,7 @@ import { UserProvider } from './context/UserContext';
 
 // Work need
 import NeedIndex from './views/NeedIndex'
+import NeedSubmit from './views/NeedSubmit'
 
 const Stack = createStackNavigator();
 
@@ -33,6 +34,11 @@ export default (props) => {
         <UserProvider style={{fontFamily: 'Raleway-Normal'}}>
             <NavigationContainer>
                 <Stack.Navigator initialRouteName="Login">
+                    <Stack.Screen
+                        name="NeedSubmit"
+                        component={NeedSubmit}
+                        options={title.needSubmit}
+                    />
                     <Stack.Screen
                         name="NeedIndex"
                         component={NeedIndex}
@@ -219,6 +225,22 @@ const title = {
                 <View style={{flexDirection: 'row', marginLeft: 10}}>
                 <Button
                     onPress={() => navigation.navigate('SignUp')}
+                    type='clear'
+                    icon={<Icon name='add' color='#26c1e0'/> }/>
+                </View>
+            ),
+        }
+    },
+    needSubmit: {
+        title: 'Nova Necessidade',
+    },
+    needIndex: ({navigation}) => {
+        return {
+            title: "Necessidade",
+            headerRight: () => (
+                <View style={{flexDirection: 'row', marginLeft: 10}}>
+                <Button
+                    onPress={() => navigation.navigate('NeedSubmit')}
                     type='clear'
                     icon={<Icon name='add' color='#26c1e0'/> }/>
                 </View>
