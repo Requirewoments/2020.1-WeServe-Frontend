@@ -28,7 +28,7 @@ export default (props) => {
     return (
         <UserProvider style={{fontFamily: 'Raleway-Normal'}}>
             <NavigationContainer>
-                <Stack.Navigator initialRouteName="SignUp">
+                <Stack.Navigator initialRouteName="Login">
                     <Stack.Screen
                         name="Login"
                         component={Login}
@@ -156,7 +156,16 @@ const title = {
     signUp: {
         title: 'Criar conta'
     },
-    login: {
-        title: 'Login'
-    }
+    login: ({navigation}) => {
+        return {
+            headerRight: () => (
+                <View style={{flexDirection: 'row', marginLeft: 10}}>
+                <Button
+                    onPress={() => navigation.navigate('SignUp')}
+                    type='clear'
+                    icon={<Icon name='add' color='#26c1e0'/> }/>
+                </View>
+            ),
+        }
+    },
 };
