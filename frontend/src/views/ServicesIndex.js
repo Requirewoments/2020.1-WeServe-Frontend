@@ -23,8 +23,6 @@ class Services extends Component {
         this.props.navigation.addListener('focus', e => {
             this.fetchServices()
         });
-        
-        console.log(this.props)
     }
     
     componentDidMount() {

@@ -26,12 +26,13 @@ import { UserProvider } from './context/UserContext';
 // Work need
 import NeedIndex from './views/NeedIndex'
 import NeedSubmit from './views/NeedSubmit'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createStackNavigator();
 
 export default (props) => {
     return (
-        <UserProvider style={{fontFamily: 'Raleway-Normal'}}>
+        <UserProvider style={{fontFamily: 'Raleway-Bold'}}>
             <NavigationContainer>
                 <Stack.Navigator initialRouteName="Login">
                     <Stack.Screen
@@ -106,15 +107,31 @@ const title = {
             title: 'Perfil de usuário',
             headerTitleStyle: {
             marginLeft: 15,
-            fontSize: 25,
-            fontFamily: 'Raleway-Normal'
+            fontSize: 20,
+            fontFamily: 'Raleway-Bold'
             },
             headerRight: () => (
-                <Button
-                    onPress={() => navigation.navigate('UpdateUser')}
-                    type='clear'
-                    icon={<Icon name='edit' color='#000000'/> }
-                />
+                <View
+                    style={{
+                        flexDirection: 'row'
+                    }}>
+                    <Button
+                        onPress={() => navigation.navigate('UpdateUser')}
+                        type='clear'
+                        icon={<Icon name='edit' color='#000000'/> }
+                    />
+                    <Button
+                        onPress={async () => {
+                            await AsyncStorage.removeItem('user')
+                            navigation.reset({
+                                index: 0,
+                                routes: [{ name: 'Login' }],
+                              });
+                        }}
+                        type='clear'
+                        icon={<Icon name='undo' color='#000000'/> }
+                        />
+                </View>
             ),
         }
     },
@@ -123,10 +140,11 @@ const title = {
             title: 'Atualizar cadastro',
             headerTitleStyle: {
                 marginLeft: 15,
-                fontSize: 25,
-                fontFamily: 'Raleway-Normal'
+                fontSize: 20,
+                fontFamily: 'Raleway-Bold'
             },
             headerLeft: () => (
+                
                 <Button
                     onPress={() => navigation.goBack()}
                     type='clear'

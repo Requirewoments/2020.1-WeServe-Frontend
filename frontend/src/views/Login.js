@@ -1,70 +1,128 @@
-import React, { useContext, useState } from 'react'
+import React, { Component, useContext, useState } from 'react'
 import { TextInput, View, StyleSheet, Button, Alert } from 'react-native'
 import HomePageButton from '../components/HomePageActionButton'
+import auth from '../helpers/auth'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 // Context 
 import UserContext from '../context/UserContext'
 
-export default props => {
-    const [email, setEmail] = useState({})
-    const [password, setPassword] = useState({})
+class Login extends Component {
 
-    return (
-        <View style={styles.form}>
-            <TextInput
-                style={styles.textInput}
-                onChangeText={email => setEmail(email)}
-                placeholder='Email'
-                keyboardType='email-address'
-                />
-            <TextInput
-                secureTextEntry={true}
-                style={styles.textInput}
-                onChangeText={password => setPassword(password)}
-                placeholder='Senha'
-            />
-            <HomePageButton
-                title='Entrar'
-                onPress={() => {
-                    const canSubmit  = validateFields(email, password) 
-                }}
-            />
-        </View>
-    )
-}
+    constructor(props) {
+        super(props)
 
-function validateFields(email, password){
-    if (!validateEmail(email)){
-        showError("Email invalido","Insira um email válido")
-        return false;
+        this.state = {
+            email: '',
+            password: ''
+        }
+
+        this.validateAlreadyLoggedIn()
     }
-    if (!validatePassword(password)){
-        showError("Senha inválida", "Sua senha deve conter 6-20 caracteres, entre eles no mínimo um número, uma letra maiúscula e uma minúscula")
-        return false;
+    
+    async validateAlreadyLoggedIn() {
+       try {
+            await auth.getUserData()
+            this.props.navigation.replace('ServicesIndex')
+        } catch (e) {}
     }
-    return true;
-}
 
-function validatePassword(password){
-    const reg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/gm
-    return (reg.test(password) && password.length >= 6 && password.length <= 20)
-}
+    validateFields(){
+        const email = this.state.email
+        const password = this.state.password
+        if (!this.validateEmail(email)){
+            this.showError("Email invalido","Insira um email válido")
+            return
+        }
+        if (!this.validatePassword(password)){
+            this.showError("Senha inválida", "A senha contem 6-20 caracteres, entre eles no mínimo um número, uma letra maiúscula e uma minúscula")
+            return
+        }
+        this.login()
+    }
+    
+    validatePassword(password){
+        const reg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/gm
+        return (reg.test(password) && password.length >= 6 && password.length <= 20)
+    }
+    
+    validateEmail(email){
+        const reg = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        return reg.test(email);
+    }
 
-function validateEmail(email){
-    const reg = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    return reg.test(email);
-}
+    async login() {
+        const url_request = Globals.server_ip + '/user/auth'
 
-function showError(title, messege){
-    Alert.alert(
-        title,
-        messege,
-        [
-            {
-                text: 'OK',
+        let success = true
+
+        let payload = {
+            password: this.state.password,
+            email: this.state.email
+        }
+        const ret = await fetch(url_request, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
             },
-        ]
-    )
+            body: JSON.stringify(payload)
+        })
+                .then(e => e.text())
+                .then(e => JSON.parse(e))
+                .catch(e => {
+                    console.log('REQUEST ERROR:', e)
+                    success = false
+                })
+        if (!success) {
+            this.showError("Não foi possível fazer o login", "Tente de novo.")
+        } else {
+            this.finishLogin(ret.user)
+        }
+    }
+
+    finishLogin(data){
+        AsyncStorage.setItem('user', JSON.stringify(data))
+        this.props.navigation.replace('ServicesIndex')
+    }
+
+    
+    showError(title, messege){
+        Alert.alert(
+            title,
+            messege,
+            [
+                {
+                    text: 'OK',
+                },
+            ]
+        )
+    }
+
+    render() {
+        return (
+            <View style={styles.form}>
+                <TextInput
+                    style={styles.textInput}
+                    onChangeText={email => this.setState({email: email})}
+                    placeholder='Email'
+                    keyboardType='email-address'
+                    />
+                <TextInput
+                    secureTextEntry={true}
+                    style={styles.textInput}
+                    onChangeText={password => this.setState({password: password})}
+                    placeholder='Senha'
+                    />
+                <HomePageButton
+                    title='Entrar'
+                    onPress={() => {
+                        this.validateFields() 
+                    }}
+                    />
+            </View>
+        )
+    }
 }
 
 const styles = StyleSheet.create({
@@ -83,3 +141,5 @@ const styles = StyleSheet.create({
 
     },
 })
+
+export default Login 

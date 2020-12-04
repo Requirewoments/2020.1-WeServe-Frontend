@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { StyleSheet, ScrollView, TextInput, Text, View } from 'react-native'
+import { StyleSheet, ScrollView, TextInput, Text, View, Alert } from 'react-native'
 import HomePageActionButton from '../components/HomePageActionButton'
 import { Picker } from '@react-native-picker/picker'
+import auth from '../helpers/auth'
 
 class AutoExpandingTextInput extends React.Component {
 
@@ -41,7 +42,27 @@ class Services extends Component {
             category: 'Oferta',
             author: '',
             description: '',
+            authoremail: '',
             error_message:  '',
+        }
+        this.validateLoggedUser()
+    }
+
+    async validateLoggedUser(){
+        let ok = true
+        let data = null
+        try {
+            data = await auth.getUserData()
+            data = JSON.parse(data)
+        } catch (e) {
+            ok = false
+        }
+        if (!ok) {
+            this.props.navigation.replace('ServicesIndex')
+        } else {
+            this.setState({
+                user: data
+            })
         }
     }
 
@@ -69,7 +90,8 @@ class Services extends Component {
     async createService() {
         let service = {
             title: this.state.title,
-            author: this.state.author,
+            author: this.state.user.name,
+            authoremail: this.state.user.email,
             description: this.state.description,
             category: this.state.category        
         }
@@ -150,10 +172,10 @@ class Services extends Component {
                         onChange={(obj) => {
                             this.setState({ description: obj.nativeEvent.text })
                         }} />
-                    <TextInput
+                    {/* <TextInput
                         style={styles.textinput}
                         placeholder='Autor'
-                        onChangeText={text => this.setState({ author: text })}/>
+                        onChangeText={text => this.setState({ author: text })}/> */}
                     <View style={{ height: 10 }}></View>
                     <HomePageActionButton
                         title="Criar!"
@@ -176,14 +198,14 @@ const styles = StyleSheet.create({
     textinput: {
         padding: 10,
         borderWidth: 0.2,
-        borderRadius: 10,
+        borderRadius: 5,
         marginTop: 10,
         backgroundColor: '#fff'
     },
     longtextinput: {
         padding: 10,
         borderWidth: 0.2,
-        borderRadius: 10,
+        borderRadius: 5,
         marginTop: 20,
         backgroundColor: '#fff',
         textAlignVertical: 'top'
@@ -195,7 +217,7 @@ const styles = StyleSheet.create({
         borderWidth: 0.2,
         borderColor: 'black',
         marginTop: 20,
-        borderRadius: 10,
+        borderRadius: 5,
         backgroundColor: '#fff'
     },
     descriptiontext: {
