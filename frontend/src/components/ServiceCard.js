@@ -11,15 +11,13 @@ class ServiceCard extends Component {
             <TouchableHighlight
                 style={styles.container}
                 underlayColor='#dadafa'
-                onPress={() =>
-                    this.props.navigation.navigate('ServiceView', { id: this.props.id})
-                }>
+                onPress={this.props.onPress}>
                 <View>
                     <Text style={styles.title}>{this.props.title}</Text>
                     <Text style={styles.service}>{this.props.category}</Text>
                     <Text style={styles.author}>Por: {truncate(this.props.author, 35) + (this.props.author.length > 35 ? '...' : '')}</Text>
                     <View style={styles.horizontalDivider}/>
-                    <Text style={styles.description}>{truncate(this.props.description, 100)}</Text>
+                    <Text style={styles.description}>{this.props.description? truncate(this.props.description, 100): ''}</Text>
                 </View>
             </TouchableHighlight>
         )

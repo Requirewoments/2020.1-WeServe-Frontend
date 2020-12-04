@@ -148,7 +148,7 @@ const title = {
                 <Button
                     onPress={() => navigation.goBack()}
                     type='clear'
-                    icon={<Icon name='close' color='#85bec9'/> }
+                    icon={<Icon name='close' color='#85bec9' />}
                 />
             ),
         }
@@ -163,11 +163,11 @@ const title = {
                 textAlign: 'left'
             },
             headerRight: () => (
-                <View style={{flexDirection: 'row', marginLeft: 10}}>
-                <Button
-                    onPress={() => navigation.navigate('ProfileUser')}
-                    type='clear'
-                    icon={<Icon name='account-circle' color='#26c1e0'/> }/>
+                <View style={{ flexDirection: 'row', marginLeft: 10 }}>
+                    <Button
+                        onPress={() => navigation.navigate('ProfileUser')}
+                        type='clear'
+                        icon={<Icon name='account-circle' color='#26c1e0' />} />
                 </View>
             ),
         }
@@ -207,23 +207,24 @@ const title = {
                         flexDirection: 'row'
                     }}>
                     <Button
+
                         onPress={async () => {
-                            await fetch("https://requisitos-weserve.herokuapp.com/service/" 
+                            await fetch("https://requisitos-weserve.herokuapp.com/service/"
                                 + route.params.id, {
                                 method: 'DELETE'
                             })
                             navigation.navigate('ServicesIndex')
                         }}
                         type='clear'
-                        icon={<Icon name='delete' color='#000000'/> }
-                        />
+                        icon={<Icon name='delete' color='#000000' style={{ marginRight: 10 }} />}
+                    />
                     <Button
                         onPress={() => navigation.navigate('ServiceEdit', {
                             id: route.params.id
                         })}
                         type='clear'
-                        icon={<Icon name='edit' color='#000000'/> }
-                        />
+                        icon={<Icon name='edit' color='#000000' />}
+                    />
                 </View>
             ),
         }
@@ -237,30 +238,14 @@ const title = {
     signUp: {
         title: 'Criar conta'
     },
-    login: ({navigation}) => {
+    login: ({ navigation }) => {
         return {
             headerRight: () => (
-                <View style={{flexDirection: 'row', marginLeft: 10}}>
-                <Button
-                    onPress={() => navigation.navigate('SignUp')}
-                    type='clear'
-                    icon={<Icon name='add' color='#26c1e0'/> }/>
-                </View>
-            ),
-        }
-    },
-    needSubmit: {
-        title: 'Nova Necessidade',
-    },
-    needIndex: ({navigation}) => {
-        return {
-            title: "Necessidade",
-            headerRight: () => (
-                <View style={{flexDirection: 'row', marginLeft: 10}}>
-                <Button
-                    onPress={() => navigation.navigate('NeedSubmit')}
-                    type='clear'
-                    icon={<Icon name='add' color='#26c1e0'/> }/>
+                <View style={{ flexDirection: 'row', marginLeft: 10 }}>
+                    <Button
+                        onPress={() => navigation.navigate('SignUp')}
+                        type='clear'
+                        icon={<Icon name='add' color='#26c1e0' />} />
                 </View>
             ),
         }

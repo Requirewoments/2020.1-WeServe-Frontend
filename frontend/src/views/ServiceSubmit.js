@@ -3,6 +3,7 @@ import { StyleSheet, ScrollView, TextInput, Text, View, Alert } from 'react-nati
 import HomePageActionButton from '../components/HomePageActionButton'
 import { Picker } from '@react-native-picker/picker'
 import auth from '../helpers/auth'
+import Globals from '../context/Globals';
 
 class AutoExpandingTextInput extends React.Component {
 
@@ -65,7 +66,7 @@ class Services extends Component {
             })
         }
     }
-
+    url_request = Globals.server_ip
     async fetchWithTimeout(resource, options) {
         const { timeout = 5000 } = options;
 
@@ -93,7 +94,8 @@ class Services extends Component {
             author: this.state.user.name,
             authoremail: this.state.user.email,
             description: this.state.description,
-            category: this.state.category        
+            category: this.state.category,
+            user: 'neil@email.com'     
         }
         let invalidList = []
         for (let el in service) {
@@ -122,7 +124,7 @@ class Services extends Component {
 
         let success = false
         let resultData = null
-        await this.fetchWithTimeout("https://requisitos-weserve.herokuapp.com/service/", requestOptions)
+        await this.fetchWithTimeout(this.url_request + '/service/', requestOptions)
             .then(response => response.text())
             .then(result => {
                 success = true
