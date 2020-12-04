@@ -24,9 +24,8 @@ import MessageView from './views/MessageView'
 import { UserProvider } from './context/UserContext';
 
 // Work need
-import NeedIndex from './views/NeedIndex'
-import NeedSubmit from './views/NeedSubmit'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import auth from './helpers/auth';
 
 const Stack = createStackNavigator();
 
@@ -35,16 +34,6 @@ export default (props) => {
         <UserProvider style={{fontFamily: 'Raleway-Bold'}}>
             <NavigationContainer>
                 <Stack.Navigator initialRouteName="Login">
-                    <Stack.Screen
-                        name="NeedSubmit"
-                        component={NeedSubmit}
-                        options={title.needSubmit}
-                    />
-                    <Stack.Screen
-                        name="NeedIndex"
-                        component={NeedIndex}
-                        options={title.needIndex}
-                    />
                     <Stack.Screen
                         name="Login"
                         component={Login}
@@ -194,39 +183,54 @@ const title = {
         }
     },
     ServiceView: ({ navigation, route }) => {
+
         return {
-            title: 'Serviço',
+            title: 'Serviço a',
             headerTitleStyle: {
                 fontSize: 20,
                 fontFamily: 'Raleway-Bold',
                 textAlign: 'left'
             },
-            headerRight: () => (
-                <View
-                    style={{
-                        flexDirection: 'row'
-                    }}>
-                    <Button
+            headerRight: async () => {
+                let userIsSame = false
+                let id = route.params.id
+    
+                const ret = await fetch(Globals.server_ip + "/service/" + id)
+                    .then(e => e.text())
+                    .then(e => JSON.parse(e))
+                
+                const user = JSON.parse(await auth.getUserData())
+        
+                return ret.author == user.email || true
+                if (userIsSame) {
+                    return (
+                        <View
+                            style={{
+                                flexDirection: 'row'
+                            }}>
+                            <Button
 
-                        onPress={async () => {
-                            await fetch("https://requisitos-weserve.herokuapp.com/service/"
-                                + route.params.id, {
-                                method: 'DELETE'
-                            })
-                            navigation.navigate('ServicesIndex')
-                        }}
-                        type='clear'
-                        icon={<Icon name='delete' color='#000000' style={{ marginRight: 10 }} />}
-                    />
-                    <Button
-                        onPress={() => navigation.navigate('ServiceEdit', {
-                            id: route.params.id
-                        })}
-                        type='clear'
-                        icon={<Icon name='edit' color='#000000' />}
-                    />
-                </View>
-            ),
+                                onPress={async () => {
+                                    await fetch("https://requisitos-weserve.herokuapp.com/service/"
+                                        + route.params.id, {
+                                        method: 'DELETE'
+                                    })
+                                    navigation.navigate('ServicesIndex')
+                                }}
+                                type='clear'
+                                icon={<Icon name='delete' color='#000000' style={{ marginRight: 10 }} />}
+                            />
+                            <Button
+                                onPress={() => navigation.navigate('ServiceEdit', {
+                                    id: route.params.id
+                                })}
+                                type='clear'
+                                icon={<Icon name='edit' color='#000000' />}
+                            />
+                        </View>
+                        )
+                    } else return null
+                },
         }
     },
     MessagesIndex: {

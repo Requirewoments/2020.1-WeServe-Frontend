@@ -44,7 +44,6 @@ class Services extends Component {
             service => (
                 service.category === dateFilter[0] || service.category === dateFilter[1]
             ))
-        console.warn(services, this.state.allServices)
         this.setState({ services: services })
     }
 
@@ -92,31 +91,34 @@ class Services extends Component {
                 }}>
                     Arraste para cima para atualizar a página!</Text>
                 <View style={styles.horizontalDivider}></View>
-                <Picker
-                    selectedValue={this.state.typeService}
-                    onValueChange={(itemValue) => {
-                        this.setState({ typeService: itemValue })
-                        this.selectServices()
-                    }
+                <View
+                    style={styles.categorypicker}>
+                    <Picker
+                        selectedValue={this.state.typeService}
+                        onValueChange={async (itemValue) => {
+                            await this.setState({ typeService: itemValue })
+                            this.selectServices()
+                        }
                     }>
-                    <Picker.Item label="Tudo" value="Tudo" />
-                    <Picker.Item label="Oferta" value="Oferta" />
-                    <Picker.Item label="Procura" value="Procura" />
-                </Picker>
+                        <Picker.Item label="Tudo" value="Tudo" />
+                        <Picker.Item label="Oferta" value="Oferta" />
+                        <Picker.Item label="Procura" value="Procura" />
+                    </Picker>
+                </View>
                 {
                     this.state.services.map(e => {
                         return (
                             <ServiceCard
-                                title={e.title}
-                                author={e.author}
-                                category={e.category}
-                                description={e.description}
-                                id={e.id}
-                                key={e.id}
-                                onPress={() => this.props.navigation.navigate("ServiceView", { id: e.id })} />
-                        )
-                    })
-                }
+                            title={e.title}
+                            author={e.author}
+                            category={e.category}
+                            description={e.description}
+                            id={e.id}
+                            key={e.id}
+                            onPress={() => this.props.navigation.navigate("ServiceView", { id: e.id })} />
+                            )
+                        })
+                    }
             </ScrollView>
         )
     }
@@ -135,6 +137,15 @@ const styles = StyleSheet.create({
         borderBottomColor: '#bababa',
         borderBottomWidth: 1,
         marginHorizontal: 15
+    },
+    categorypicker: {
+        borderWidth: 0.2,
+        borderColor: 'black',
+        marginTop: 10,
+        marginBottom: 10,
+        borderRadius: 5,
+        backgroundColor: '#fff',
+        marginHorizontal: 20
     }
 })
 

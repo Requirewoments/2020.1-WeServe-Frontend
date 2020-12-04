@@ -14,11 +14,9 @@ class AutoExpandingTextInput extends React.Component {
     }
 
     async updateText(text) {
-        console.log('received')
         await this.setState({
             text: text
         })
-        console.log(this.state)
     }
 
     render() {
